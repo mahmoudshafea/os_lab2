@@ -19,8 +19,8 @@ if [ ! -d "$malicious_dir" ]; then
 fi
 
 while true; do
-	mapfile -t files << ( find "$malicious_dir" -maxdepth 1 -type f -printf "%f/n" | sort)
-	if [ "${#files[@]}" -e 0}; then
+	mapfile -t files < <( find "$malicious_dir" -maxdepth 1 -type f -printf "%f\n" | sort)
+	if [ "${#files[@]}" -eq 0 ]; then
 		echo "malicious directory is empty"
 		exit 0
 	fi

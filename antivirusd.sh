@@ -7,12 +7,12 @@ fi
 dir="$1"
 malicious_dir="$2"
 interval_secs="$3"
-if [ ! -d dir ]; then
+if [ ! -d "$dir" ]; then
 	echo "Source directory not found"
 	exit 1
 fi
-if [ ! -d malicious_dir ]; then
-	mkdir -p "malicious_dir"
+if [ ! -d "$malicious_dir" ]; then
+	mkdir -p "$malicious_dir"
 fi
 
 snapshot_last="directory-info.last"
@@ -29,13 +29,13 @@ is_malicious(){
 	filename=$(basename "$file")
 
 	for extension in  "${flagged_extensions[@]}"; do
-		if [[filename==*."$extension"]]; then
+		if [[ "$filename" == *."$extension" ]]; then
 			return 0
 		fi
 	done
 
 	for keyword in "${flagged_keywords[@]}"; do
-		if grep -qi "$file" "$keyword" 2>dev/null; then
+		if grep -qi "$keyword" "$file" 2>/dev/null; then
 			return 0
 		fi
 	done
@@ -65,12 +65,12 @@ if [ ! -f "$snapshot_last" ]; then
 fi
 
 while true; do
-    sleep "$interval"
+    sleep "$interval_secs"
 
     ls -l "$dir" > "$snapshot_new"
 
     if ! cmp -s "$snapshot_last" "$snapshot_new"; then
         scan_directory
-        cp "$snapshot_new" "$Snapshot_last"
+        cp "$snapshot_new" "$snapshot_last"
     fi
 done
