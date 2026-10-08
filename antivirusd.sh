@@ -67,7 +67,7 @@ fi
 while true; do
     sleep "$interval"
 
-    ls -l "$dir" > "$snapshot_last"
+    ls -l "$dir" > "$snapshot_new"
 
     if ! cmp -s "$snapshot_last" "$snapshot_new"; then
         scan_directory
