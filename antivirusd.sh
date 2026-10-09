@@ -4,13 +4,16 @@ if [ "$#" -ne 3 ]; then
 	echo "Usage: $0 dir malicious_dir interval-secs"
 	exit 1
 fi
+
 dir="$1"
 malicious_dir="$2"
 interval_secs="$3"
+
 if [ ! -d "$dir" ]; then
 	echo "Source directory not found"
 	exit 1
 fi
+
 if [ ! -d "$malicious_dir" ]; then
 	mkdir -p "$malicious_dir"
 fi

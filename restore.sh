@@ -2,7 +2,7 @@
 
 if [ "$#" -ne 2 ]; then
 	echo "usage: $0 fir malicious_dir"
-	return 1
+	exit 1
 fi
 
 dir="$1"
@@ -19,7 +19,8 @@ if [ ! -d "$malicious_dir" ]; then
 fi
 
 while true; do
-	mapfile -t files < <( find "$malicious_dir" -maxdepth 1 -type f -printf "%f\n" | sort)
+	files=("$malicious_dir"/*)
+
 	if [ "${#files[@]}" -eq 0 ]; then
 		echo "malicious directory is empty"
 		exit 0
@@ -27,16 +28,15 @@ while true; do
     echo
     read -rp "Choose a file number: " choice
 
-    if ! [[ "$choice" =~ ^[0-9]+$ ]] ||
-       [ "$choice" -lt 1 ] ||
-       [ "$choice" -gt "${#files[@]}" ]; then
-        echo "Invalid choice."
-        continue
+    if (( choice < 1 || choice > ${#files[@]} )); then
+     echo "Invalid choice."
+     continue
     fi
+  
 
     index=$((choice - 1))
-    filename="${files[$index]}"
-    filepath="$malicious_dir/$filename"
+    filepath="${files[$index]}"
+    filename=$(basename "$filepath")
 
     echo
     echo "Selected: $filename"
