@@ -2,7 +2,6 @@ DIR = test_dir
 MALICIOUS_DIR = malicious_dir
 INTERVAL = 5
 
-.PHONY: all setup antivirus restore clean
 
 all: setup antivirus
 

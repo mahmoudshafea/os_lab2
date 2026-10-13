@@ -1,2 +1,4 @@
-total 4
+total 8
 -rw-rw-r-- 1 user user 30 Oct  8 19:07 hello.txt
+-rw-rw-r-- 1 user user  0 Oct 13 20:23 hi.exe
+-rw-rw-r-- 1 user user  5 Oct 13 20:24 test.txt

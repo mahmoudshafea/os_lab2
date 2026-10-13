@@ -19,12 +19,20 @@ if [ ! -d "$malicious_dir" ]; then
 fi
 
 while true; do
-	files=("$malicious_dir"/*)
+    files=("$malicious_dir"/*)
 
-	if [ "${#files[@]}" -eq 0 ]; then
-		echo "malicious directory is empty"
-		exit 0
-	fi
+    if [ "${#files[@]}" -eq 0 ] ||  [ ! -e "${files[0]}" ]; then
+        echo "malicious directory is empty"
+        exit 0
+    fi
+
+    echo
+    echo "Files in the malicious directory:"
+
+    for i in "${!files[@]}"; do
+        echo "$((i + 1)). $(basename "${files[$i]}")"
+    done
+
     echo
     read -rp "Choose a file number: " choice
 
