@@ -38,7 +38,7 @@ is_malicious(){
 	done
 
 	for keyword in "${flagged_keywords[@]}"; do
-		if grep -qi "$keyword" "$file" 2>/dev/null; then
+		if grep -qi "$keyword" "$file" ; then
 			return 0
 		fi
 	done

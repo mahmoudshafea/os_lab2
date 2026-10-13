@@ -34,7 +34,7 @@ while true; do
     done
 
     echo
-    read -rp "Choose a file number: " choice
+    read -r "Choose a file number: " choice
 
     if (( choice < 1 || choice > ${#files[@]} )); then
      echo "Invalid choice."
@@ -52,7 +52,7 @@ while true; do
     echo "2. Permanently delete this file"
     echo "3. Leave this file as-is"
 
-    read -rp "Choose an option: " option
+    read -p "Choose an option: " option
 
     case "$option" in
         1)
